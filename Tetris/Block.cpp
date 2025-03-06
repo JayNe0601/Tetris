@@ -5,7 +5,7 @@ int Block::size = 36;// 方块的大小
 Block::Block() {
 	if (imgs[0] == NULL) {
 		IMAGE imgTmp;// 临时图像
-		loadimage(&imgTmp, "photo/blocks.png");// 加载图片
+		loadimage(&imgTmp, "photos/blocks.png");// 加载图片
 		SetWorkingImage(&imgTmp);// 设置工作群
 		for (int i = 0; i < 7; i++) {// 切割图片
 			imgs[i] = new IMAGE;// 为每个方块分配内存

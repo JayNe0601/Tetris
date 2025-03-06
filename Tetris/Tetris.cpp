@@ -21,7 +21,7 @@ void Tetris::init() {
 	srand(time(NULL));// 配置随机种子
 	initgraph(938, 896);// 初始化游戏窗口
 	// 加载背景图片
-	loadimage(&imgBg, "photo/bg.png");
+	loadimage(&imgBg, "photos/bg.png");
 	for (int i = 0; i < rows; i++) for (int j = 0; j < cols; j++) map[i][j] = 0;// 游戏重新开始时，重置游戏，所有方块都没有
 }
 void Tetris::play() {
