@@ -30,11 +30,27 @@ Block::Block() {
 	}
 	img = imgs[blockType - 1];// 设置每个小方块图像
 }
-void Block::drop() {
-}
+void Block::drop() { for (auto &i : smallBlocks) i.row++; }// 方块下落
 void Block::moveLeftRight(int offset) {
+	// 左右移动
+	for (auto& i : smallBlocks) i.col += offset;
 }
-void Block::retate() {
+void Block::rotate() {
+	/*// 1. 旋转，类似与矩阵的转置，只需要交换行列即可，会出现问题
+	for (int i = 0; i < 4; i++) swap(smallBlocks[i].row, smallBlocks[i].col);*/
+	//合适的旋转，以第二个小方块为中心旋转
+	Point p = smallBlocks[1];// 获取第二个小方块
+	/*数学公式：
+	按某个旋转中心p逆时针旋转90度的公式为：
+	tmp = x;
+	x.row = p.row - (tmp.col - p.col);
+	x.col = p.col + (tmp.row - p.row);
+	*/
+	for (int i = 0; i < 4; i++) {
+		Point tmp = smallBlocks[i];
+		smallBlocks[i].row = p.row - (tmp.col - p.col);
+		smallBlocks[i].col = p.col + (tmp.row - p.row);// 利用公式进行旋转
+	}
 }
 void Block::draw(int leftMargin, int topMargin) {
 	for (int i = 0; i < 4; i++) {// 绘制4个小方块
@@ -43,3 +59,23 @@ void Block::draw(int leftMargin, int topMargin) {
 		putimage(x, y, img);// 绘制小方块
 	}
 }
+IMAGE** Block::getImgs() { return imgs; }
+Block& Block::operator=(const Block& other) {
+	if (this == &other) return *this;
+	this->blockType = other.blockType;
+	for (int i = 0; i < 4; i++) this->smallBlocks[i] = other.smallBlocks[i];
+	return *this;
+}// 赋值运算符重载
+bool Block::blockInMap(const vector<vector<int>>& map) {
+	int rows = map.size();// 行数
+	int cols = map[0].size();// 列数
+	for (int i = 0; i < 4; i++) if (smallBlocks[i].col < 0 || smallBlocks[i].col >= cols || smallBlocks[i].row < 0 || smallBlocks[i].row >= rows || map[smallBlocks[i].row][smallBlocks[i].col]) return false;
+	// 判断方块是否在地图中 1.小方块在地图外 2.小方块在地图中有方块 返回false
+	return true;
+}
+void Block::solidify(vector<vector<int>>& map) {
+	// 固化位置
+	for (int i = 0; i < 4; i++) map[smallBlocks[i].row][smallBlocks[i].col] = blockType;
+}
+
+int Block::getBlockType() { return blockType; }
