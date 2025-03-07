@@ -34,7 +34,7 @@ main.cpp
 ```
 #include "Tetris.h"
 int main(void) {
-	Tetris game(20, 10, 163, 133, 36);// 创建一个俄罗斯方块游戏对象，20行，10列，左边界163，上边界133，方块大小36
+	Tetris game(20, 10, 263, 133, 36);// 创建一个俄罗斯方块游戏对象，20行，10列，左边界263，上边界133，方块大小36
 	game.play();// 开始游戏
 	return 0;
 }
@@ -105,7 +105,7 @@ int blocks[7][4] = {
 ```
 > 此方案只需建立一个二维数组建立方块的最初形态，后续变化的形态用算法解决。
 ```
-IMAGE* Block::imgs[7] = { NULL, };//待定义， 7种方块的图像
+IMAGE *Block::imgs[7] = { NULL, };//待定义， 7种方块的图像
 int Block::size = 36;//待定义， 方块的大小
 Block::Block() {
 	if (imgs[0] == NULL) {
@@ -158,9 +158,9 @@ block.h
 private:
 	int blockType;//方块类型
 	Point smallBlocks[4];//方块的4个点的坐标
-	IMAGE* img;//图像，指针用于指向相应的图像
+	IMAGE *img;//图像，指针用于指向相应的图像
 	//静态成员变量，所有对象共享，用于存储7种方块的图像
-	static IMAGE* imgs[7];//7种方块的图像，静态成员变量，指针用于内存分配
+	static IMAGE *imgs[7];//7种方块的图像，静态成员变量，指针用于内存分配
 	static int size;//方块的大小
 ```
 ### 补充私有成员函数
@@ -219,3 +219,26 @@ Tetris::Tetris(int rows, int cols, int left, int top, int blockSize) {
 ```
 
 ### 初始化游戏场景
+```
+const int SPEED_NORMAL = 500; //下降慢的速度
+const int SPEED_QUICK = 50; //下降快的速度
+void Tetris::init() {
+	delay = SPEED_NORMAL;// 设置延时
+	srand(time(NULL));// 配置随机种子
+	initgraph(938, 896);// 初始化游戏窗口
+	// 加载背景图片
+	loadimage(&imgBg, "photos/bg.png");
+	for (int i = 0; i < rows; i++) for (int j = 0; j < cols; j++) map[i][j] = 0;// 游戏重新开始时，重置游戏，所有方块都没有
+}
+```
+
+## 测试方块
+```
+void Tetris::updateWindow() {
+	putimage(0, 0, &imgBg);// 绘制背景
+	// 测试方块
+	Block block;
+	block.draw(leftMargin, topMargin);// 绘制方块
+
+}
+```
