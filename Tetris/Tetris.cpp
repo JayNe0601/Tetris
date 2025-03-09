@@ -79,11 +79,11 @@ void Tetris::keyEvent() {
 		//如果按下向右按键，先后返回：224 77，向右移动
 		if (ch == 224) {
 			ch = _getch();
-			switch(ch) {
-			case 72: 
+			switch (ch) {
+			case 72:
 				rotateFlag = true;
 				break;// 旋转
-			case 80: 
+			case 80:
 				delay = SPEED_QUICK;
 				break;// 快速下降
 			case 75:

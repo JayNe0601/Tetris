@@ -1,0 +1,7 @@
+﻿  Tetris.cpp
+E:\Dev\Tetris\Tetris.cpp(27,12): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+E:\Dev\Tetris\Tetris.cpp(140,11): warning C4244: “初始化”: 从“unsigned __int64”转换到“int”，可能丢失数据
+E:\Dev\Tetris\Tetris.cpp(186,15): warning C4244: “+=”: 从“double”转换到“int”，可能丢失数据
+E:\Dev\Tetris\Tetris.cpp(226,16): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+E:\Dev\Tetris\Tetris.cpp(238,16): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  Tetris.vcxproj -> E:\Dev\Tetris\x64\Debug\Tetris.exe

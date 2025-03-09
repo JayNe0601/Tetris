@@ -30,7 +30,7 @@ Block::Block() {
 	}
 	img = imgs[blockType - 1];// 设置每个小方块图像
 }
-void Block::drop() { for (auto &i : smallBlocks) i.row++; }// 方块下落
+void Block::drop() { for (auto& i : smallBlocks) i.row++; }// 方块下落
 void Block::moveLeftRight(int offset) {
 	// 左右移动
 	for (auto& i : smallBlocks) i.col += offset;
